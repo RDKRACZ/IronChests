@@ -6,24 +6,27 @@ import io.github.cyberanner.ironchests.registry.ModBlocks;
 import io.github.cyberanner.ironchests.registry.ModScreenHandlerType;
 import io.github.cyberanner.ironchests.screenhandlers.ChestScreenHandler;
 
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 public enum ChestTypes {
-
-    COPPER(45, 9, new Identifier(IronChests.MOD_ID, "model/copper_chest")),
-    IRON(54, 9, new Identifier(IronChests.MOD_ID, "model/iron_chest")),
-    GOLD(81, 9, new Identifier(IronChests.MOD_ID, "model/gold_chest")),
-    DIAMOND(108, 12, new Identifier(IronChests.MOD_ID, "model/diamond_chest")),
-    EMERALD(108, 12, new Identifier(IronChests.MOD_ID, "model/emerald_chest")),
+    NETHERITE(108, 12, new Identifier(IronChests.MOD_ID, "model/obsidian_chest")),
     OBSIDIAN(108, 12, new Identifier(IronChests.MOD_ID, "model/obsidian_chest")),
     CRYSTAL(108, 12, new Identifier(IronChests.MOD_ID, "model/crystal_chest")),
+    DIAMOND(108, 12, new Identifier(IronChests.MOD_ID, "model/diamond_chest")),
+    EMERALD(108, 12, new Identifier(IronChests.MOD_ID, "model/emerald_chest")),
+    GOLD(81, 9, new Identifier(IronChests.MOD_ID, "model/gold_chest")),
+    IRON(54, 9, new Identifier(IronChests.MOD_ID, "model/iron_chest")),
+    COPPER(45, 9, new Identifier(IronChests.MOD_ID, "model/copper_chest")),
     CHRISTMAS(27, 9, new Identifier("entity/chest/christmas")),
     WOOD(27, 9, new Identifier("entity/chest/normal"));
 
@@ -94,6 +97,40 @@ public enum ChestTypes {
             case OBSIDIAN -> ModBlockEntityType.OBSIDIAN_CHEST;
             case CHRISTMAS -> ModBlockEntityType.CHRISTMAS_CHEST;
             default -> BlockEntityType.CHEST;
+        };
+    }
+    public FabricBlockSettings setting() {
+        return switch (this) {
+            case COPPER, GOLD -> FabricBlockSettings.of(Material.METAL)
+                    .hardness(3.0F)
+                    .resistance(6.0F)
+                    .sounds(BlockSoundGroup.COPPER)
+                    .requiresTool();
+            case IRON -> FabricBlockSettings.of(Material.METAL)
+                    .hardness(5.0F)
+                    .resistance(6.0F)
+                    .sounds(BlockSoundGroup.COPPER)
+                    .requiresTool();
+            case DIAMOND, EMERALD -> FabricBlockSettings.of(Material.METAL)
+                    .hardness(5.0F)
+                    .resistance(6.0F)
+                    .sounds(BlockSoundGroup.STONE)
+                    .requiresTool();
+            case CRYSTAL -> FabricBlockSettings.of(Material.GLASS)
+                    .hardness(3.0F)
+                    .resistance(3.0F)
+                    .sounds(BlockSoundGroup.AMETHYST_BLOCK)
+                    .requiresTool();
+            case OBSIDIAN -> FabricBlockSettings.of(Material.STONE)
+                    .hardness(50.0F)
+                    .resistance(1200.0F)
+                    .sounds(BlockSoundGroup.STONE)
+                    .requiresTool();
+            case WOOD, CHRISTMAS -> FabricBlockSettings.of(Material.WOOD)
+                    .hardness(3.0F)
+                    .resistance(3.0F)
+                    .sounds(BlockSoundGroup.WOOD);
+            default -> FabricBlockSettings.of(Material.WOOD);
         };
     }
 }

@@ -3,14 +3,14 @@
   "id": "ironchests",
   "version": "${version}",
 
-  "name": "Iron Chests for Fabric",
-  "description": "Iron Chests for Fabric Mod Loader.",
+  "name": "Iron Chests",
+  "description": "Bigger Chests for Minecraft",
   "authors": [
-    "Cyber Anner"
+    "anner"
   ],
   "contact": {
-    "homepage": "https://github.com/cyberanner/ironchests",
-    "sources": "https://github.com/cyberanner/ironchests"
+    "homepage": "https://github.com/4nner/ironchests",
+    "sources": "https://github.com/4nner/ironchests"
   },
 
   "license": "gpl-3.0",
@@ -29,10 +29,10 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.12.5",
-    "fabric": ">=0.42.7",
-    "minecraft": "1.18.x",
-    "java": ">=16"
+    "fabricloader": ">=0.14.19",
+    "fabric": ">=0.80.0",
+    "minecraft": "1.19.4",
+    "java": ">=17"
   },
   "suggests": {
     "another-mod": "*"

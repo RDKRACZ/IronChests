@@ -10,7 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.Packet;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.screen.ScreenHandler;
@@ -20,7 +20,6 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -44,7 +43,7 @@ public class GenericChestEntity extends ChestBlockEntity {
 
     @Override
     protected Text getContainerName() {
-        return new TranslatableText(getCachedState().getBlock().getTranslationKey());
+        return Text.translatable(getCachedState().getBlock().getTranslationKey());
     }
 
     @Override
@@ -91,7 +90,7 @@ public class GenericChestEntity extends ChestBlockEntity {
     public void markDirty() {
         super.markDirty();
 
-        if (this.getWorld() != null && !this.getWorld().isClient()) {
+        if (this.getWorld() != null && !this.getWorld().isClient() && this.getWorld() instanceof ServerWorld) {
             ((ServerWorld) world).getChunkManager().markForUpdate(getPos());
         }
     }
